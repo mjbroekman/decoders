@@ -18,6 +18,7 @@ my $evalexpr = substr($contents,$firsteval, ($firstsemi - $firsteval));
 $evalexpr =~ s/eval\(base64_decode\(['"]//;
 $evalexpr =~ s/['"\);]+//;
 
+my $debug = 0;
 my $len = -1;
 my $substr = 0;
 my $type = decode_base64($evalexpr);
@@ -34,7 +35,7 @@ if ( $type =~ /preg_replace\(['"]\@\\\(\.\*\\\(/ ) {
     if ( $offsets =~ /array\((\d+),(\d+),(32|40),(\d+)\)/ ) {
       $len = $4;
       $substr = $1 + $2 + $3;
-      warn "Integrity check is on front of file\n";
+      warn "Integrity check is on front of file\n" if ( $debug );
     }
 }
 ###
@@ -43,7 +44,7 @@ if ( $type =~ /preg_replace\(['"]\@\\\(\.\*\\\(/ ) {
 if ( $type =~ /if\(\!function_exists/ ) {
     if ( $type =~ /array\((\d+),(\d+),(32|40)\)/ ) {
       $substr = $1 + $2 + $3;
-      warn "Integrity check is on end of file\n";
+      warn "Integrity check is on end of file\n" if ( $debug );
     }
 }
 ###
