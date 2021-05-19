@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 
 use Digest::MD5 qw( md5_hex );
-use Digest::SHA1 qw( sha1_hex );
+use Digest::SHA qw( sha1_hex );
 use MIME::Base64;
 use Compress::Zlib;
 
